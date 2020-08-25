@@ -1,0 +1,13 @@
+.mainWrapper {
+  background-color: #440d5a;
+  border-top: 2px dashed #b43fe3;
+}
+
+.contentWrapper {
+  min-height: 80px;
+  color: rgb(206, 194, 194);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
