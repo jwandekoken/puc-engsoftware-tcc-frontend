@@ -2,15 +2,15 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { Card, Form, Button, Spinner } from "react-bootstrap";
+import { Redirect } from "react-router-dom";
 import validator from "validator";
 
 import { logInUser } from "../../shared/redux/actions/auth";
-import { setError } from "../../shared/redux/actions/error";
 import Navigation from "../../shared/components/navigation/Navigation";
 import Footer from "../../shared/components/ui-elements/Footer";
 import styles from "./Login.module.css";
 
-const Login = ({ logInUser, setError, isLoading }) => {
+const Login = ({ logInUser, isLoading, auth }) => {
   const [formData, setFormData] = useState({
     email: {
       value: "",
@@ -108,7 +108,8 @@ const Login = ({ logInUser, setError, isLoading }) => {
   };
 
   return (
-    <div>
+    <>
+      {auth.isLoggedIn && <Redirect to="/dashboard" />}
       <Navigation />
       <div className={styles.contentWrapper}>
         <Card>
@@ -180,21 +181,20 @@ const Login = ({ logInUser, setError, isLoading }) => {
         </Card>
       </div>
       <Footer />
-    </div>
+    </>
   );
 };
 
 Login.propTypes = {
   logInUser: PropTypes.func.isRequired,
-  setError: PropTypes.func.isRequired,
   isLoading: PropTypes.bool.isRequired,
 };
 
-const mapStateToProps = ({ isLoading }) => ({
+const mapStateToProps = ({ isLoading, auth }) => ({
   isLoading,
+  auth,
 });
 
 export default connect(mapStateToProps, {
   logInUser,
-  setError,
 })(Login);

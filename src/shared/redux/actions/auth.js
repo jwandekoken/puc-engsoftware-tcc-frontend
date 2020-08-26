@@ -77,9 +77,6 @@ export const autoLogInUser = () => (dispatch) => {
     dispatch({
       type: LOGIN_USER,
       token: storedData.token,
-      userData: {
-        ...storedData.userObj,
-      },
     });
   }
 };

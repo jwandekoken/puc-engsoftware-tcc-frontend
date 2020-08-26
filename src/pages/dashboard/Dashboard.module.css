@@ -1,0 +1,33 @@
+.contentWrapper {
+  min-height: 85vh;
+  background-image: linear-gradient(
+      to bottom,
+      rgba(236, 236, 236, 0.83),
+      rgba(253, 253, 253, 0.45)
+    ),
+    url("../../shared//images/bg.jpg");
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dashboardCardCol {
+  display: flex;
+  justify-content: center;
+}
+
+.cardBody {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+@media only screen and (max-width: 769px) {
+  .dashboardCardCol {
+    margin-bottom: 20px;
+  }
+}
