@@ -5,7 +5,6 @@ export default (
   state = {
     isLoggedIn: false,
     token: null,
-    userData: null,
   },
   action
 ) => {
@@ -14,14 +13,12 @@ export default (
       return {
         isLoggedIn: true,
         token: action.token,
-        userData: action.userData,
       };
 
     case LOGOUT_USER:
       return {
         isLoggedIn: false,
         token: null,
-        userData: null,
       };
 
     default:

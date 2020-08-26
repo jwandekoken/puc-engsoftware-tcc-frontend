@@ -15,14 +15,14 @@ export const logInUser = (email, password) => async (dispatch) => {
 
   let responseData;
   try {
-    const response = await fetch("http://localhost:5000/login", {
+    const response = await fetch("http://localhost:5000/api/usuarios/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
         email,
-        pass: password,
+        password,
       }),
     });
 
@@ -43,19 +43,13 @@ export const logInUser = (email, password) => async (dispatch) => {
       localStorage.setItem(
         "userData",
         JSON.stringify({
-          userObj: {
-            ...responseData.user,
-          },
-          token: responseData["x-auth-token"],
+          token: responseData.token,
         })
       );
 
       dispatch({
         type: LOGIN_USER,
-        token: responseData["x-auth-token"],
-        userData: {
-          ...responseData.cliente,
-        },
+        token: responseData.token,
       });
     }
   } catch (error) {
