@@ -1,18 +1,18 @@
 import React from "react";
-import { Button } from "react-bootstrap";
+import { Button, Container } from "react-bootstrap";
 
 import styles from "./HeroBanner.module.css";
 
 const HeroBanner = () => {
   return (
     <div className={styles.mainWrapper}>
-      <div className={styles.contentWrapper}>
-        <h1>Birl Sistemas</h1>
-        <p className="lead">Sistema Gerencial Para Academias</p>
+      <Container className={styles.contentWrapper}>
+        <h1>BIRL!</h1>
+        <p className="lead">Gym Management</p>
         <Button variant="light" size="lg">
           Iniciar
         </Button>
-      </div>
+      </Container>
     </div>
   );
 };

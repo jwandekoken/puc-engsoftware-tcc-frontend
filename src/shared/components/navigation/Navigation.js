@@ -9,7 +9,7 @@ import { logOffUser } from "../../redux/actions/auth";
 const Navigation = ({ auth, logOffUser }) => {
   return (
     <Navbar bg="primary" variant="dark" expand="md">
-      <Navbar.Brand href="#home">Birl Academias</Navbar.Brand>
+      <Navbar.Brand href="#home">BIRL!</Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="ml-auto">
