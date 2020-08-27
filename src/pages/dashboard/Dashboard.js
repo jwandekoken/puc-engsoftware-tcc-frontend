@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 import { Redirect } from "react-router-dom";
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import { FaUserAltSlash } from "react-icons/fa";
@@ -26,9 +27,11 @@ const Dashboard = ({ auth }) => {
                   <FaUserAltSlash style={{ fontSize: "25px" }} />
                   <Card.Title>Inadimplentes</Card.Title>
 
-                  <Button variant="danger" size="lg">
-                    <FaRegArrowAltCircleRight />
-                  </Button>
+                  <Link to="clientes-inadimplentes">
+                    <Button variant="danger" size="lg">
+                      <FaRegArrowAltCircleRight />
+                    </Button>
+                  </Link>
                 </Card.Body>
               </Card>
             </Col>

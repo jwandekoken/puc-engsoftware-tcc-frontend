@@ -8,6 +8,7 @@ import ErrorModal from "./shared/components/ui-elements/ErrorModal";
 import Home from "./pages/home/Home";
 import Login from "./pages/login/Login";
 import Dashboard from "./pages/dashboard/Dashboard";
+import Clients from "./pages/clients/Clients";
 
 function App({ autoLogInUser }) {
   useEffect(() => {
@@ -22,6 +23,7 @@ function App({ autoLogInUser }) {
           <Route exact path="/" component={Home} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/dashboard" component={Dashboard} />
+          <Route exact path="/clientes-inadimplentes" component={Clients} />
         </Switch>
       </>
     </Router>

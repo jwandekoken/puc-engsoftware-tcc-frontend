@@ -29,6 +29,12 @@ const Navigation = ({ auth, logOffUser }) => {
             </Nav.Link>
           )}
 
+          {auth.isLoggedIn && (
+            <Nav.Link as={NavLink} exact to="/clientes-inadimplentes">
+              Clientes
+            </Nav.Link>
+          )}
+
           {auth.isLoggedIn && <Nav.Link onClick={logOffUser}>Logout</Nav.Link>}
         </Nav>
       </Navbar.Collapse>
