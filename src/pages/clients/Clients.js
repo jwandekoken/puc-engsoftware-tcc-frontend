@@ -1,16 +1,19 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { Container, Table, Row, Col, Form, Button } from "react-bootstrap";
+import { Container, Table } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
 import validator from "validator";
 
+import { setError } from "../../shared/redux/actions/error";
 import Navigation from "../../shared/components/navigation/Navigation";
 import Footer from "../../shared/components/ui-elements/Footer";
 import FormFilter from "./Components/FormFilter";
 import styles from "./Clients.module.css";
 
-const Clients = ({ auth }) => {
+const Clients = ({ auth, setError }) => {
+  const [unpayingCustomers, setUnpayingCustomers] = useState([]);
+
   const [formData, setFormData] = useState({
     name: {
       value: "",
@@ -92,7 +95,25 @@ const Clients = ({ auth }) => {
       finishingDateFilter = formData.finishingDate.value;
     }
 
-    // MAKE REQUEST TO BACKEND
+    // make request to backend
+    if (!clientNameFilter && !startingDateFilter && !finishingDateFilter) {
+      fetch("http://localhost:5000/api/pagamentos/unpaying", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: auth.token,
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data.signaturePlans);
+          setUnpayingCustomers(data.signaturePlans);
+        })
+        .catch((err) => {
+          console.log(err);
+          setError("Erro ao obter os dados.");
+        });
+    }
   };
 
   return (
@@ -122,14 +143,24 @@ const Clients = ({ auth }) => {
                 <th>Valor devido</th>
               </tr>
             </thead>
+
             <tbody>
-              <tr>
-                <td>1</td>
-                <td>Mark</td>
-                <td>11111</td>
-                <td>xx/xx/xxxx</td>
-                <td>R$ xx,xx</td>
-              </tr>
+              {unpayingCustomers.length > 0 &&
+                unpayingCustomers.map((unpaying) => (
+                  <tr key={unpaying._id}>
+                    <td>{unpaying.client_id.rg}</td>
+                    <td>{unpaying.client_id.name}</td>
+                    <td>{unpaying.client_id.cpf}</td>
+                    <td>{`${new Date(unpaying.unpaidSince).getDate()}/${
+                      new Date(unpaying.unpaidSince).getMonth() + 1
+                    }/${new Date(unpaying.unpaidSince).getFullYear()}`}</td>
+                    <td>
+                      R${" "}
+                      {unpaying.unpayments *
+                        parseFloat(unpaying.price.$numberDecimal)}
+                    </td>
+                  </tr>
+                ))}
             </tbody>
           </Table>
         </Container>
@@ -141,10 +172,13 @@ const Clients = ({ auth }) => {
 
 Clients.propTypes = {
   auth: PropTypes.object.isRequired,
+  setError: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = ({ auth }) => ({
   auth,
 });
 
-export default connect(mapStateToProps)(Clients);
+export default connect(mapStateToProps, {
+  setError,
+})(Clients);
