@@ -35,6 +35,18 @@ const Navigation = ({ auth, logOffUser }) => {
             </Nav.Link>
           )}
 
+          {auth.isLoggedIn && (
+            <Nav.Link as={NavLink} exact to="/pagamento">
+              Pagamento
+            </Nav.Link>
+          )}
+
+          {auth.isLoggedIn && (
+            <Nav.Link as={NavLink} exact to="/instrutores">
+              Instrutores
+            </Nav.Link>
+          )}
+
           {auth.isLoggedIn && <Nav.Link onClick={logOffUser}>Logout</Nav.Link>}
         </Nav>
       </Navbar.Collapse>

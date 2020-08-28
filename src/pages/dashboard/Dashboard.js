@@ -41,9 +41,11 @@ const Dashboard = ({ auth }) => {
                   <BiMoney style={{ fontSize: "25px" }} />
                   <Card.Title>Novo Pgto</Card.Title>
 
-                  <Button variant="success" size="lg">
-                    <FaRegArrowAltCircleRight />
-                  </Button>
+                  <Link to="/pagamento">
+                    <Button variant="success" size="lg">
+                      <FaRegArrowAltCircleRight />
+                    </Button>
+                  </Link>
                 </Card.Body>
               </Card>
             </Col>
@@ -53,9 +55,11 @@ const Dashboard = ({ auth }) => {
                   <FaUserNinja style={{ fontSize: "25px" }} />
                   <Card.Title>Instrutores</Card.Title>
 
-                  <Button variant="info" size="lg">
-                    <FaRegArrowAltCircleRight />
-                  </Button>
+                  <Link to="instrutores">
+                    <Button variant="info" size="lg">
+                      <FaRegArrowAltCircleRight />
+                    </Button>
+                  </Link>
                 </Card.Body>
               </Card>
             </Col>

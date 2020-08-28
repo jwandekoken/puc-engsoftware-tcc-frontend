@@ -9,6 +9,8 @@ import Home from "./pages/home/Home";
 import Login from "./pages/login/Login";
 import Dashboard from "./pages/dashboard/Dashboard";
 import Clients from "./pages/clients/Clients";
+import Payment from "./pages/payments/Payment";
+import Instructors from "./pages/instructors/Instructors";
 
 function App({ autoLogInUser }) {
   useEffect(() => {
@@ -24,6 +26,8 @@ function App({ autoLogInUser }) {
           <Route exact path="/login" component={Login} />
           <Route exact path="/dashboard" component={Dashboard} />
           <Route exact path="/clientes-inadimplentes" component={Clients} />
+          <Route exact path="/pagamento" component={Payment} />
+          <Route exact path="/instrutores" component={Instructors} />
         </Switch>
       </>
     </Router>
