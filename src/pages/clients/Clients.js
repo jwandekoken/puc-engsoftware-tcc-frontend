@@ -37,17 +37,15 @@ const Clients = ({ auth, setError }) => {
 
   const onInputChange = (e) => {
     if (e.target.id === "name") {
-      if (e.target.value.length > 0) {
-        setFormData({
-          ...formData,
-          [e.target.id]: {
-            value: e.target.value,
-            isValid: true,
-            touched: true,
-            errorMessage: "",
-          },
-        });
-      }
+      setFormData({
+        ...formData,
+        [e.target.id]: {
+          value: e.target.value,
+          isValid: true,
+          touched: true,
+          errorMessage: "",
+        },
+      });
     }
 
     if (e.target.id === "startingDate" || e.target.id === "finishingDate") {
@@ -77,11 +75,11 @@ const Clients = ({ auth, setError }) => {
 
   const onFormSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
+    console.log("formData", formData);
 
-    let clientNameFilter = null;
-    let startingDateFilter = null;
-    let finishingDateFilter = null;
+    let clientNameFilter;
+    let startingDateFilter;
+    let finishingDateFilter;
 
     if (formData.name.value !== "" && formData.name.isValid) {
       clientNameFilter = formData.name.value;
@@ -96,24 +94,32 @@ const Clients = ({ auth, setError }) => {
     }
 
     // make request to backend
-    if (!clientNameFilter && !startingDateFilter && !finishingDateFilter) {
-      fetch("http://localhost:5000/api/pagamentos/unpaying", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: auth.token,
-        },
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          console.log(data.signaturePlans);
+
+    fetch("http://localhost:5000/api/pagamentos/unpaying", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: auth.token,
+      },
+      body: JSON.stringify({
+        name: clientNameFilter,
+        startingDate: startingDateFilter,
+        finishingDate: finishingDateFilter,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data.signaturePlans);
+        if (data.signaturePlans.length > 0) {
           setUnpayingCustomers(data.signaturePlans);
-        })
-        .catch((err) => {
-          console.log(err);
-          setError("Erro ao obter os dados.");
-        });
-    }
+        } else {
+          setUnpayingCustomers([]);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        setError("Erro ao obter os dados.");
+      });
   };
 
   return (
