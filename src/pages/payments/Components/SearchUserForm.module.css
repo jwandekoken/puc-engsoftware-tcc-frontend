@@ -1,0 +1,11 @@
+.invalidFormControl {
+  border: 2px dashed red !important;
+}
+
+.formErrorTextWrapper {
+  margin-top: 3px;
+}
+
+.errorText {
+  color: red;
+}

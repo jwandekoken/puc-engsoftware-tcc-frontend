@@ -1,73 +1,38 @@
-import React from "react";
-import { Container, Row, Col, Form, Button, Table } from "react-bootstrap";
-import { FaSearch } from "react-icons/fa";
+import React, { useState } from "react";
+import { Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { Container } from "react-bootstrap";
 
+import SearchUserForm from "./Components/SearchUserForm";
+import UserTable from "./Components/UserTable";
+import NewPaymentForm from "./Components/NewPaymentForm";
 import Navigation from "../../shared/components/navigation/Navigation";
 
-const Payment = () => {
+const Payment = ({ auth }) => {
+  const [userData, setUserData] = useState();
+
   return (
     <>
+      {!auth.isLoggedIn && <Redirect to="/login" />}
       <Navigation />
       <Container>
-        <Row style={{ marginTop: "20px" }}>
-          <Col>
-            <Form inline>
-              <Form.Control
-                type="text"
-                placeholder="Nome do Cliente"
-                style={{ marginRight: "5px" }}
-              />
-              <Button variant="success" type="submit">
-                <FaSearch />
-              </Button>
-            </Form>
-          </Col>
-        </Row>
-        <Row style={{ marginTop: "50px" }}>
-          <Col>
-            <Table striped bordered hover responsive>
-              <thead>
-                <tr>
-                  <th>Matrícula</th>
-                  <th>Nome</th>
-                  <th>Data Venc</th>
-                  <th>Plano</th>
-                  <th>Valor</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>11111</td>
-                  <td>Mark</td>
-                  <td>xx/xx/xxxx</td>
-                  <td>Mensal</td>
-                  <td>R$ 100,00</td>
-                </tr>
-              </tbody>
-            </Table>
-          </Col>
-        </Row>
-        <Row style={{ marginTop: "50px" }}>
-          <Col>
-            <h4 style={{ textAlign: "center" }}>Novo Pagamento</h4>
+        <SearchUserForm setUserData={setUserData} auth={auth} />
 
-            <Form>
-              <Form.Control
-                type="text"
-                placeholder="Nome do Cliente"
-                style={{ marginBottom: "15px" }}
-              />
-              <div style={{ textAlign: "center" }}>
-                <Button variant="primary" type="submit">
-                  Lançar Pgto
-                </Button>
-              </div>
-            </Form>
-          </Col>
-        </Row>
+        {userData && <UserTable userData={userData} />}
+
+        {userData && <NewPaymentForm auth={auth} userData={userData} />}
       </Container>
     </>
   );
 };
 
-export default Payment;
+Payment.propTypes = {
+  auth: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = ({ auth }) => ({
+  auth,
+});
+
+export default connect(mapStateToProps)(Payment);
