@@ -4,9 +4,9 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { Container } from "react-bootstrap";
 
-import SearchUserForm from "./Components/SearchUserForm";
-import UserTable from "./Components/UserTable";
-import NewPaymentForm from "./Components/NewPaymentForm";
+import SearchUserForm from "./components/SearchUserForm";
+import UserTable from "./components/UserTable";
+import NewPaymentForm from "./components/NewPaymentForm";
 import Navigation from "../../shared/components/navigation/Navigation";
 
 const Payment = ({ auth }) => {
