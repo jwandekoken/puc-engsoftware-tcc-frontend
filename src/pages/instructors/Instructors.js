@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 import PropTypes from "prop-types";
 import { Container, Button } from "react-bootstrap";
 import { FaUserPlus } from "react-icons/fa";
@@ -17,6 +18,8 @@ const Instructors = ({ auth }) => {
 
   return (
     <>
+      {!auth.isLoggedIn && <Redirect to="/login" />}
+
       <Navigation />
       <Container>
         <div className={styles.newInstructorBtnWrapper}>
@@ -35,6 +38,7 @@ const Instructors = ({ auth }) => {
           <InstructorTable
             instructor={instructor}
             setInstructorToEdit={setInstructorToEdit}
+            instructorToEdit={instructorToEdit}
           />
         )}
 
