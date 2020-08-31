@@ -3,19 +3,27 @@ import PropTypes from "prop-types";
 import { Row, Col, Button, Table } from "react-bootstrap";
 
 import EditInstructorModal from "./EditInstructorModal";
+import DeleteInstructorModal from "./DeleteInstructorModal";
 
 const InstructorTable = ({
   instructor,
   instructorToEdit,
   setInstructorToEdit,
 }) => {
-  const [showModal, setShowModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   return (
     <>
       <EditInstructorModal
-        showModal={showModal}
-        setShowModal={setShowModal}
+        showModal={showEditModal}
+        setShowModal={setShowEditModal}
+        instructorToEdit={instructorToEdit}
+      />
+
+      <DeleteInstructorModal
+        showModal={showDeleteModal}
+        setShowModal={setShowDeleteModal}
         instructorToEdit={instructorToEdit}
       />
 
@@ -43,14 +51,22 @@ const InstructorTable = ({
                     variant="secondary"
                     onClick={() => {
                       setInstructorToEdit(instructor);
-                      setShowModal(true);
+                      setShowEditModal(true);
                     }}
                   >
                     Editar
                   </Button>
                 </td>
                 <td>
-                  <Button variant="danger">Deletar</Button>
+                  <Button
+                    variant="danger"
+                    onClick={() => {
+                      setInstructorToEdit(instructor);
+                      setShowDeleteModal(true);
+                    }}
+                  >
+                    Deletar
+                  </Button>
                 </td>
               </tr>
             </tbody>
